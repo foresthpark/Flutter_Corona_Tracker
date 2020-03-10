@@ -1,4 +1,7 @@
+import 'package:corona_tracker/app/services/api_dervice.dart';
 import 'package:flutter/material.dart';
+
+import 'app/services/api.dart';
 
 void main() => runApp(MyApp());
 
@@ -44,16 +47,14 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+  String _accessToken = '';
 
-  void _incrementCounter() {
+  Future<void> _upsateAccessToken() async {
+    final apiService = APIService(API.sandbox());
+    final accessToken = await apiService.getAccessToken();
+
     setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
+      _accessToken = accessToken;
     });
   }
 
@@ -95,14 +96,14 @@ class _MyHomePageState extends State<MyHomePage> {
               'You have pushed the button this many times:',
             ),
             Text(
-              '$_counter',
+              '$_accessToken',
               style: Theme.of(context).textTheme.display1,
             ),
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
+        onPressed: _upsateAccessToken,
         tooltip: 'Increment',
         child: Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
