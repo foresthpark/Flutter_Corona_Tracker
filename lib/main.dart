@@ -47,7 +47,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  String _accessToken = '';
+  String _accessToken;
 
   Future<void> _upsateAccessToken() async {
     final apiService = APIService(API.sandbox());
